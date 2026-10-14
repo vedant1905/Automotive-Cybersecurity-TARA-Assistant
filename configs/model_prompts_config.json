@@ -1,0 +1,55 @@
+{
+  "model_configuration": {
+    "llm": {
+      "provider": "google_genai",
+      "model_name": "gemini-1.5-pro",
+      "fallback_model": "gemini-1.5-flash",
+      "temperature": 0.1,
+      "top_p": 0.95,
+      "max_output_tokens": 2048,
+      "strict_json_mode": true
+    },
+    "embedding": {
+      "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+      "dimension": 384,
+      "normalize_embeddings": true
+    },
+    "vector_database": {
+      "type": "chromadb",
+      "collection_name": "automotive_threat_library",
+      "persist_directory": "data/chroma_db",
+      "distance_metric": "cosine",
+      "similarity_top_k": 5,
+      "metadata_filters": [
+        "category",
+        "affected_components",
+        "affected_interfaces"
+      ]
+    }
+  },
+  "prompts_configuration": {
+    "system_prompt": "You are an expert Automotive Cybersecurity TARA (Threat Analysis and Risk Assessment) Analyst operating strictly under ISO/SAE 21434:2021 and UN Regulation No. 155. NON-NEGOTIABLE COMPLIANCE RULES: 1. Zero Hallucinated Identifiers: Never invent CAPEC, CWE, or R155 IDs. 2. Ground Truth Citations: Derive all mappings from verified datasets. 3. Deterministic Evaluation: Follow exact ISO 21434 formulas. 4. Flag uncertainties with needs_human_review: true.",
+    "pipeline_steps": [
+      {
+        "step": 1,
+        "name": "asset_threat_identification",
+        "description": "Correlates component interfaces and functions against retrieved threat context to identify violated cybersecurity properties."
+      },
+      {
+        "step": 2,
+        "name": "attack_feasibility_scoring",
+        "description": "Evaluates 5 ISO/SAE 21434 Attack Potential parameters (Elapsed Time, Expertise, Knowledge, Window, Equipment) to determine feasibility level."
+      },
+      {
+        "step": 3,
+        "name": "impact_rating",
+        "description": "Rates consequences across Safety, Financial, Operational, and Privacy (SFOP) dimensions."
+      },
+      {
+        "step": 4,
+        "name": "risk_determination",
+        "description": "Maps Feasibility and Impact to ISO 21434 5x5 matrix to calculate Risk Value (1-5) and recommend official UN R155 mitigations."
+      }
+    ]
+  }
+}

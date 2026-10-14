@@ -1,0 +1,1785 @@
+[
+  {
+    "r155_threat_id": "1.1",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "Back-end servers used as a means to attack a vehicle or",
+    "r155_description": "Abuse of privileges by staff (insider attack)",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-122",
+        "name": "Privilege Abuse"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-269",
+        "name": "Improper Privilege Management"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M8",
+        "text_summary": "Confidential data transmitted to or from the vehicle shall be protected"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "1.2",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "extract data",
+    "r155_description": "Unauthorized internet access to the server (enabled for example by backdoors, unpatched system software vulnerabilities, SQL attacks or other means)",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-66",
+        "name": "SQL Injection"
+      },
+      {
+        "id": "CAPEC-115",
+        "name": "Authentication Bypass"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-89",
+        "name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      },
+      {
+        "id": "CWE-287",
+        "name": "Improper Authentication"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M4",
+        "text_summary": "The vehicle shall be capable of updating"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "1.3",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "extract data",
+    "r155_description": "Unauthorized physical access to the server (conducted by for example USB sticks or other media connecting to the server)",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-457",
+        "name": "USB Memory Attacks"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-1299",
+        "name": "Missing Protection Mechanism for Alternate Hardware Interface"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M9",
+        "text_summary": "Measures to prevent and detect unauthorized access shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "2.1",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "Services from back-end server being disrupted, affecting the operation of a vehicle",
+    "r155_description": "Attack on back-end server stops it functioning, for example it prevents it from interacting with vehicles and providing services they rely on",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-125",
+        "name": "Flooding"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-404",
+        "name": "Improper Resource Shutdown or Release"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M13",
+        "text_summary": "Measures to detect and recover from a denial of service attack shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "3.1",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "Vehicle related data held on back-end servers being lost or",
+    "r155_description": "Abuse of privileges by staff (insider attack)",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-122",
+        "name": "Privilege Abuse"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-269",
+        "name": "Improper Privilege Management"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M8",
+        "text_summary": "Confidential data transmitted to or from the vehicle shall be protected"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "3.2",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "compromised (\"data breach\")",
+    "r155_description": "Loss of information in the cloud. Sensitive data may be lost due to attacks or accidents when data is stored by third-party cloud service providers",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-546",
+        "name": "Incomplete Data Deletion in a Multi-Tenant Environment"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-284",
+        "name": "Improper Access Control"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M8",
+        "text_summary": "Confidential data transmitted to or from the vehicle shall be protected"
+      }
+    ],
+    "mapping_confidence": "medium",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "3.3",
+    "category": "4.3.1 Threats regarding back-end servers related to vehicles in the field",
+    "sub_category": "compromised (\"data breach\")",
+    "r155_description": "Unauthorized internet access to the server (enabled for example by backdoors, unpatched system software vulnerabilities, SQL attacks or other means)",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-66",
+        "name": "SQL Injection"
+      },
+      {
+        "id": "CAPEC-115",
+        "name": "Authentication Bypass"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-89",
+        "name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      },
+      {
+        "id": "CWE-287",
+        "name": "Improper Authentication"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M4",
+        "text_summary": "The vehicle shall be capable of updating"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "4.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Spoofing of messages or data received by the vehicle",
+    "r155_description": "Spoofing of messages by impersonation (e.g. V2X cooperative awareness or manoeuvre coordination messages, GNSS messages, etc.)",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-151",
+        "name": "Identity Spoofing"
+      },
+      {
+        "id": "CAPEC-148",
+        "name": "Content Spoofing"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-287",
+        "name": "Improper Authentication"
+      },
+      {
+        "id": "CWE-345",
+        "name": "Insufficient Verification of Data Authenticity"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "4.2",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Spoofing of messages or data received by the vehicle",
+    "r155_description": "Sybil attack (in order to spoof other vehicles as if there are many vehicles on the road)",
+    "affected_components": [
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Wi-Fi"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-151",
+        "name": "Identity Spoofing"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-287",
+        "name": "Improper Authentication"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "medium",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "5.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Communication channels used to conduct unauthorized manipulation, deletion or other amendments to vehicle",
+    "r155_description": "Communications channels permit code injection, for example tampered software binary might be injected into the communication stream",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-242",
+        "name": "Code Injection"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-94",
+        "name": "Improper Control of Generation of Code ('Code Injection')"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "5.2",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "held code/data",
+    "r155_description": "Communications channels permit manipulate of vehicle held data/code",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "5.3",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "held code/data",
+    "r155_description": "Communications channels permit overwrite of vehicle held data/code",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-100",
+        "name": "Overflow Buffers"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-120",
+        "name": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "5.4",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "held code/data",
+    "r155_description": "Communications channels permit erasure of vehicle held data/code",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "medium",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "5.5",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "held code/data",
+    "r155_description": "Communications channels permit introduction of data/code to the vehicle (write data code)",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-242",
+        "name": "Code Injection"
+      },
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-94",
+        "name": "Improper Control of Generation of Code ('Code Injection')"
+      },
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "6.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Communication channels permit untrusted/unreliable messages to be accepted or are",
+    "r155_description": "Accepting information from an unreliable or untrusted source",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M10",
+        "text_summary": "The vehicle shall verify the authenticity and integrity of messages it receives"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "6.2",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "vulnerable to session hijacking/replay attacks",
+    "r155_description": "Man in the middle attack/ session hijacking",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-94",
+        "name": "Adversary in the Middle (AiTM)"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-300",
+        "name": "Channel Accessible by Non-Endpoint"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M10",
+        "text_summary": "The vehicle shall verify the authenticity and integrity of messages it receives"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "6.3",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "vulnerable to session hijacking/replay attacks",
+    "r155_description": "Replay attack, for example an attack against a communication gateway allows the attacker to downgrade software of an ECU or firmware of the gateway",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-60",
+        "name": "Reusing Session IDs (aka Session Replay)"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-294",
+        "name": "Authentication Bypass by Capture-replay"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M10",
+        "text_summary": "The vehicle shall verify the authenticity and integrity of messages it receives"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "7.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Information can be readily disclosed. For example, through eavesdropping on",
+    "r155_description": "Interception of information / interfering radiations 11 monitoring communications",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Automotive Ethernet",
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-157",
+        "name": "Sniffing Attacks"
+      },
+      {
+        "id": "CAPEC-651",
+        "name": "Eavesdropping"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-311",
+        "name": "Missing Encryption of Sensitive Data"
+      },
+      {
+        "id": "CWE-200",
+        "name": "Exposure of Sensitive Information to an Unauthorized Actor"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M12",
+        "text_summary": "Confidential data transmitted to or from the vehicle shall be protected"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "7.2",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "communications or through allowing unauthorized access to sensitive files or folders",
+    "r155_description": "Gaining unauthorized access to files or data",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Infotainment Unit (IVI)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "USB"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-122",
+        "name": "Privilege Abuse"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-269",
+        "name": "Improper Privilege Management"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M12",
+        "text_summary": "Confidential data transmitted to or from the vehicle shall be protected"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "8.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Denial of service attacks via communication channels to disrupt vehicle functions",
+    "r155_description": "Sending a large number of garbage data to vehicle information system, so that it is unable to provide services in the normal manner",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-125",
+        "name": "Flooding"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-404",
+        "name": "Improper Resource Shutdown or Release"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M13",
+        "text_summary": "Measures to detect and recover from a denial of service attack shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "9.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "An unprivileged user is able to gain privileged access to vehicle systems",
+    "r155_description": "An unprivileged user is able to gain privileged access, for example root access",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-233",
+        "name": "Privilege Escalation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-269",
+        "name": "Improper Privilege Management"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M9",
+        "text_summary": "Measures to prevent and detect unauthorized access shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "11.1",
+    "category": "4.3.2 Threats to vehicles regarding their communication channels",
+    "sub_category": "Messages received by the vehicle (for example X2V or diagnostic messages), or",
+    "r155_description": "Malicious internal (e.g. CAN) messages",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-242",
+        "name": "Code Injection"
+      },
+      {
+        "id": "CAPEC-151",
+        "name": "Identity Spoofing"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-94",
+        "name": "Improper Control of Generation of Code ('Code Injection')"
+      },
+      {
+        "id": "CWE-287",
+        "name": "Improper Authentication"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M15",
+        "text_summary": "Measures to detect malicious internal messages or activity should be considered"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "12.1",
+    "category": "4.3.3 Threats to vehicles regarding their update process",
+    "sub_category": "Misuse or compromise of update procedures",
+    "r155_description": "Compromise of over the air software update procedures. This includes fabricating the system update program or firmware",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-186",
+        "name": "Malicious Software Update"
+      },
+      {
+        "id": "CAPEC-657",
+        "name": "Malicious Automated Software Update via Spoofing"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-494",
+        "name": "Download of Code Without Integrity Check"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M16",
+        "text_summary": "Secure software update procedures shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "12.2",
+    "category": "4.3.3 Threats to vehicles regarding their update process",
+    "sub_category": "Misuse or compromise of update procedures",
+    "r155_description": "Compromise of local/physical software update procedures. This includes fabricating the system update program or firmware",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "OBD-II Diagnostic Port"
+    ],
+    "affected_interfaces": [
+      "UDS over CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-186",
+        "name": "Malicious Software Update"
+      },
+      {
+        "id": "CAPEC-184",
+        "name": "Software Integrity Attack"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-494",
+        "name": "Download of Code Without Integrity Check"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M16",
+        "text_summary": "Secure software update procedures shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "12.3",
+    "category": "4.3.3 Threats to vehicles regarding their update process",
+    "sub_category": "Misuse or compromise of update procedures",
+    "r155_description": "The software is manipulated before the update process (and is therefore corrupted), although the update process is intact",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-184",
+        "name": "Software Integrity Attack"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-494",
+        "name": "Download of Code Without Integrity Check"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M17",
+        "text_summary": "Integrity protection of software shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "12.4",
+    "category": "4.3.3 Threats to vehicles regarding their update process",
+    "sub_category": "Misuse or compromise of update procedures",
+    "r155_description": "Compromise of cryptographic keys of the software provider to allow invalid update",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Internet / REST API",
+      "Cellular"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-97",
+        "name": "Cryptanalysis"
+      },
+      {
+        "id": "CAPEC-20",
+        "name": "Encryption Brute Forcing"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-327",
+        "name": "Use of a Broken or Risky Cryptographic Algorithm"
+      },
+      {
+        "id": "CWE-326",
+        "name": "Inadequate Encryption Strength"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M11",
+        "text_summary": "Security controls shall be implemented for storing cryptographic keys e.g. Security Modules"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "13.1",
+    "category": "4.3.3 Threats to vehicles regarding their update process",
+    "sub_category": "It is possible to deny legitimate updates",
+    "r155_description": "Denial of Service attack against update server or network to prevent rollout of critical software updates and/or unlock of customer specific features",
+    "affected_components": [
+      "OTA Backend Server & Mobile App API",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Internet / REST API"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-125",
+        "name": "Flooding"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-404",
+        "name": "Improper Resource Shutdown or Release"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "15.1",
+    "category": "4.3.4 Threats to vehicles regarding unintended human actions facilitating a cyber-attack",
+    "sub_category": "Legitimate actors are able to take actions that would unwittingly facilitate a cyber- attack",
+    "r155_description": "Innocent victim (e.g. owner, operator or maintenance engineer) being tricked into taking an action to unintentionally load malware or enable an attack",
+    "affected_components": [
+      "Infotainment Unit (IVI)",
+      "OBD-II Diagnostic Port"
+    ],
+    "affected_interfaces": [
+      "USB",
+      "UDS over CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-416",
+        "name": "Manipulate Human Behavior"
+      },
+      {
+        "id": "CAPEC-457",
+        "name": "USB Memory Attacks"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-1299",
+        "name": "Missing Protection Mechanism for Alternate Hardware Interface"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M18",
+        "text_summary": "Measures shall be implemented for defining and controlling user roles and access rights"
+      },
+      {
+        "id": "M19",
+        "text_summary": "Security awareness and training shall be provided"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "15.2",
+    "category": "4.3.4 Threats to vehicles regarding unintended human actions facilitating a cyber-attack",
+    "sub_category": "Legitimate actors are able to take actions that would unwittingly facilitate a cyber- attack",
+    "r155_description": "Defined security procedures are not followed",
+    "affected_components": [
+      "OBD-II Diagnostic Port",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "UDS over CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-180",
+        "name": "Exploiting Incorrectly Configured Access Control Security Levels"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-732",
+        "name": "Incorrect Permission Assignment for Critical Resource"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M18",
+        "text_summary": "Measures shall be implemented for defining and controlling user roles and access rights"
+      },
+      {
+        "id": "M19",
+        "text_summary": "Security awareness and training shall be provided"
+      }
+    ],
+    "mapping_confidence": "medium",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "16.1",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "Manipulation of the connectivity of vehicle functions enables a cyber- attack, this can include",
+    "r155_description": "Manipulation of functions designed to remotely operate systems, such as remote key, immobilizer, and charging pile",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "Cellular",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-395",
+        "name": "Bypassing Electronic Locks and Access Controls"
+      },
+      {
+        "id": "CAPEC-60",
+        "name": "Reusing Session IDs (aka Session Replay)"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-294",
+        "name": "Authentication Bypass by Capture-replay"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M20",
+        "text_summary": "Systems should be designed to resist tampering"
+      },
+      {
+        "id": "M24",
+        "text_summary": "Vulnerability management and incident response processes shall be implemented"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "16.2",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "telematics; systems that permit remote operations; and systems using short range wireless communications",
+    "r155_description": "Manipulation of vehicle telematics (e.g. manipulate temperature measurement of sensitive goods, remotely unlock cargo doors)",
+    "affected_components": [
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Cellular"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-610",
+        "name": "Cellular Data Injection"
+      },
+      {
+        "id": "CAPEC-609",
+        "name": "Cellular Traffic Intercept"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-311",
+        "name": "Missing Encryption of Sensitive Data"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M20",
+        "text_summary": "Systems should be designed to resist tampering"
+      },
+      {
+        "id": "M24",
+        "text_summary": "Vulnerability management and incident response processes shall be implemented"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "16.3",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "telematics; systems that permit remote operations; and systems using short range wireless communications",
+    "r155_description": "Interference with short range wireless systems or sensors",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Infotainment Unit (IVI)"
+    ],
+    "affected_interfaces": [
+      "Wi-Fi",
+      "Bluetooth"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-603",
+        "name": "Blockage"
+      }
+    ],
+    "cwe": [],
+    "r155_mitigations": [
+      {
+        "id": "M21",
+        "text_summary": "Cryptographic controls shall be applied to protect communication confidentiality and integrity"
+      }
+    ],
+    "mapping_confidence": "low",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "17.1",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "Hosted 3rd party software, e.g. entertainment applications, used as a means to attack vehicle systems",
+    "r155_description": "Corrupted applications, or those with poor software security, used as a method to attack vehicle systems",
+    "affected_components": [
+      "Infotainment Unit (IVI)"
+    ],
+    "affected_interfaces": [
+      "Wi-Fi",
+      "USB"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-242",
+        "name": "Code Injection"
+      },
+      {
+        "id": "CAPEC-100",
+        "name": "Overflow Buffers"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-94",
+        "name": "Improper Control of Generation of Code ('Code Injection')"
+      },
+      {
+        "id": "CWE-120",
+        "name": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M7",
+        "text_summary": "Access control techniques and designs shall be applied to protect system data/code. Example Security Controls can be found in OWASP"
+      },
+      {
+        "id": "M24",
+        "text_summary": "Vulnerability management and incident response processes shall be implemented"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "18.1",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "Devices connected to external interfaces e.g. USB ports, OBD port, used as a means to attack",
+    "r155_description": "External interfaces such as USB or other ports used as a point of attack, for example through code injection",
+    "affected_components": [
+      "Infotainment Unit (IVI)"
+    ],
+    "affected_interfaces": [
+      "USB"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-457",
+        "name": "USB Memory Attacks"
+      },
+      {
+        "id": "CAPEC-242",
+        "name": "Code Injection"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-1299",
+        "name": "Missing Protection Mechanism for Alternate Hardware Interface"
+      },
+      {
+        "id": "CWE-94",
+        "name": "Improper Control of Generation of Code ('Code Injection')"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M22",
+        "text_summary": "Network segmentation and boundary protection shall be applied to isolate critical vehicle networks"
+      },
+      {
+        "id": "M24",
+        "text_summary": "Vulnerability management and incident response processes shall be implemented"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "18.2",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "vehicle systems",
+    "r155_description": "Media infected with a virus connected to a vehicle system",
+    "affected_components": [
+      "Infotainment Unit (IVI)"
+    ],
+    "affected_interfaces": [
+      "USB"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-457",
+        "name": "USB Memory Attacks"
+      },
+      {
+        "id": "CAPEC-542",
+        "name": "Targeted Malware"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-1299",
+        "name": "Missing Protection Mechanism for Alternate Hardware Interface"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M14",
+        "text_summary": "Measures to protect systems against embedded viruses/malware should be considered"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "18.3",
+    "category": "4.3.5 Threats to vehicles regarding their external connectivity and connections",
+    "sub_category": "vehicle systems",
+    "r155_description": "Diagnostic access (e.g. dongles in OBD port) used to facilitate an attack, e.g. manipulate vehicle parameters (directly or indirectly)",
+    "affected_components": [
+      "OBD-II Diagnostic Port",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "UDS over CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-184",
+        "name": "Software Integrity Attack"
+      },
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-494",
+        "name": "Download of Code Without Integrity Check"
+      },
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M22",
+        "text_summary": "Network segmentation and boundary protection shall be applied to isolate critical vehicle networks"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "19.1",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Extraction of vehicle data/ code",
+    "r155_description": "Extraction of copyright or proprietary software from vehicle systems (product piracy)",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-188",
+        "name": "Reverse Engineering"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-1278",
+        "name": "Missing Protection Against Hardware Reverse Engineering Using Integrated Circuit (IC) Imaging Techniques"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M7",
+        "text_summary": "Access control techniques and designs shall be applied to protect system data/code. Example Security Controls can be found in OWASP"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "19.3",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Extraction of vehicle data/ code",
+    "r155_description": "Extraction of cryptographic keys",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-37",
+        "name": "Retrieve Embedded Sensitive Data"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-311",
+        "name": "Missing Encryption of Sensitive Data"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M11",
+        "text_summary": "Security controls shall be implemented for storing cryptographic keys e.g. Security Modules"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "20.1",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Manipulation of vehicle data/ code",
+    "r155_description": "Illegal/unauthorized changes to vehicle's electronic",
+    "affected_components": [
+      "Powertrain ECU",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      },
+      {
+        "id": "CAPEC-184",
+        "name": "Software Integrity Attack"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      },
+      {
+        "id": "CWE-494",
+        "name": "Download of Code Without Integrity Check"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M7",
+        "text_summary": "Access control techniques and designs shall be applied to protect system data/code. Example Security Controls can be found in OWASP"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "20.3",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Manipulation of vehicle data/ code",
+    "r155_description": "Action to circumvent monitoring systems (e.g. hacking/ tampering/ blocking of messages such as ODR Tracker data, or number of runs)",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Cellular"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-180",
+        "name": "Exploiting Incorrectly Configured Access Control Security Levels"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-732",
+        "name": "Incorrect Permission Assignment for Critical Resource"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "medium",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "20.5",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Manipulation of vehicle data/ code",
+    "r155_description": "Unauthorized changes to system diagnostic data",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "OBD-II Diagnostic Port"
+    ],
+    "affected_interfaces": [
+      "UDS over CAN",
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-153",
+        "name": "Input Data Manipulation"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-20",
+        "name": "Improper Input Validation"
+      }
+    ],
+    "r155_mitigations": [],
+    "mapping_confidence": "medium",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "21.1",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Erasure of datalcode",
+    "r155_description": "Unauthorized deletion/manipulation of system event logs",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-93",
+        "name": "Log Injection-Tampering-Forging"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-117",
+        "name": "Improper Output Neutralization for Logs"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M7",
+        "text_summary": "Access control techniques and designs shall be applied to protect system data/code. Example Security Controls can be found in OWASP"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "22.2",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Introduction of malware",
+    "r155_description": "Introduce malicious software or malicious software activity",
+    "affected_components": [
+      "Infotainment Unit (IVI)",
+      "Telematics Control Unit (TCU)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "USB",
+      "Cellular"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-542",
+        "name": "Targeted Malware"
+      },
+      {
+        "id": "CAPEC-184",
+        "name": "Software Integrity Attack"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-494",
+        "name": "Download of Code Without Integrity Check"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M7",
+        "text_summary": "Access control techniques and designs shall be applied to protect system data/code. Example Security Controls can be found in OWASP"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "24.1",
+    "category": "4.3.6 Potential targets of, or motivations for, an attack on vehicles",
+    "sub_category": "Disruption of systems or operations",
+    "r155_description": "Denial of service, for example this may be triggered on the internal network by flooding a CAN bus, or by provoking faults on an ECU via a high rate of messaging",
+    "affected_components": [
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-125",
+        "name": "Flooding"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-404",
+        "name": "Improper Resource Shutdown or Release"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M13",
+        "text_summary": "Measures to detect and recover from a denial of service attack shall be employed"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "26.1",
+    "category": "4.3.7 Potential vulnerabilities that could be exploited if not sufficiently protected or hardened",
+    "sub_category": "Cryptographic technologies can be compromised or are insufficiently applied",
+    "r155_description": "Combination of short encryption keys and long period of validity enables attacker to break encryption",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-20",
+        "name": "Encryption Brute Forcing"
+      },
+      {
+        "id": "CAPEC-97",
+        "name": "Cryptanalysis"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-326",
+        "name": "Inadequate Encryption Strength"
+      },
+      {
+        "id": "CWE-327",
+        "name": "Use of a Broken or Risky Cryptographic Algorithm"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M21",
+        "text_summary": "Cryptographic controls shall be applied to protect communication confidentiality and integrity"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "26.2",
+    "category": "4.3.7 Potential vulnerabilities that could be exploited if not sufficiently protected or hardened",
+    "sub_category": "Cryptographic technologies can be compromised or are insufficiently applied",
+    "r155_description": "Insufficient use of cryptographic algorithms to protect sensitive systems",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "Cellular"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-97",
+        "name": "Cryptanalysis"
+      },
+      {
+        "id": "CAPEC-20",
+        "name": "Encryption Brute Forcing"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-327",
+        "name": "Use of a Broken or Risky Cryptographic Algorithm"
+      },
+      {
+        "id": "CWE-326",
+        "name": "Inadequate Encryption Strength"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M21",
+        "text_summary": "Cryptographic controls shall be applied to protect communication confidentiality and integrity"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "27.1",
+    "category": "4.3.7 Potential vulnerabilities that could be exploited if not sufficiently protected or hardened",
+    "sub_category": "Parts or supplies could be compromised to permit vehicles to be attacked",
+    "r155_description": "Hardware or software, engineered to enable an attack or fails to meet design criteria to stop an attack",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-438",
+        "name": "Modification During Manufacture"
+      }
+    ],
+    "cwe": [],
+    "r155_mitigations": [
+      {
+        "id": "M23",
+        "text_summary": "Security testing and verification shall be performed during development"
+      }
+    ],
+    "mapping_confidence": "low",
+    "needs_human_review": true
+  },
+  {
+    "r155_threat_id": "28.1",
+    "category": "4.3.7 Potential vulnerabilities that could be exploited if not sufficiently protected or hardened",
+    "sub_category": "Software or hardware development permits vulnerabilities",
+    "r155_description": "Software bugs. The presence of software bugs can be a basis for potential exploitable vulnerabilities. This is particularly true if software has not been tested to verify that known bad codelbugs is not present and reduce the risk of unknown bad code/bugs being present",
+    "affected_components": [
+      "Telematics Control Unit (TCU)",
+      "Central Gateway (CGW)",
+      "Infotainment Unit (IVI)"
+    ],
+    "affected_interfaces": [
+      "Automotive Ethernet",
+      "CAN",
+      "Cellular"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-100",
+        "name": "Overflow Buffers"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-120",
+        "name": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')"
+      },
+      {
+        "id": "CWE-119",
+        "name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M23",
+        "text_summary": "Security testing and verification shall be performed during development"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "28.2",
+    "category": "4.3.7 Potential vulnerabilities that could be exploited if not sufficiently protected or hardened",
+    "sub_category": "Software or hardware development permits vulnerabilities",
+    "r155_description": "Using remainders from development (e.g. debug ports, JTAG ports, microprocessors, development certificates, developer passwords, ...) can permit access to ECUs or permit attackers to gain higher privileges",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "OBD-II Diagnostic Port"
+    ],
+    "affected_interfaces": [
+      "UDS over CAN",
+      "CAN"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-190",
+        "name": "Reverse Engineer an Executable to Expose Assumed Hidden Functionality"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-912",
+        "name": "Hidden Functionality"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M23",
+        "text_summary": "Security testing and verification shall be performed during development"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  },
+  {
+    "r155_threat_id": "29.2",
+    "category": "4.3.7 Potential vulnerabilities that could be exploited if not sufficiently protected or hardened",
+    "sub_category": "Network design introduces vulnerabilities",
+    "r155_description": "Circumvent network separation to gain control. Specific example is the use of unprotected gateways, or access points (such as truck-trailer gateways), to circumvent protections and gain access to other network segments to perform malicious acts, such as sending arbitrary CAN bus messages",
+    "affected_components": [
+      "Central Gateway (CGW)",
+      "Powertrain ECU",
+      "Brake ECU"
+    ],
+    "affected_interfaces": [
+      "CAN",
+      "Automotive Ethernet"
+    ],
+    "capec": [
+      {
+        "id": "CAPEC-180",
+        "name": "Exploiting Incorrectly Configured Access Control Security Levels"
+      }
+    ],
+    "cwe": [
+      {
+        "id": "CWE-732",
+        "name": "Incorrect Permission Assignment for Critical Resource"
+      }
+    ],
+    "r155_mitigations": [
+      {
+        "id": "M22",
+        "text_summary": "Network segmentation and boundary protection shall be applied to isolate critical vehicle networks"
+      }
+    ],
+    "mapping_confidence": "high",
+    "needs_human_review": false
+  }
+]

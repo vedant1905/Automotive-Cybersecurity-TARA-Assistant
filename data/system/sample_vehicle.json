@@ -1,0 +1,224 @@
+{
+  "system_name": "Sample Connected & Automated Vehicle E/E Architecture",
+  "system_version": "1.0",
+  "system_description": "Reference vehicle electronic and electrical architecture representing a connected passenger vehicle for Threat Analysis and Risk Assessment (TARA) in compliance with UN Regulation No. 155 and ISO/SAE 21434.",
+  "components": [
+    {
+      "id": "COMP-TCU",
+      "name": "Telematics Control Unit (TCU)",
+      "description": "Embedded controller handling long-range wireless connectivity, telematics telemetry, emergency eCall, and remote vehicle operations.",
+      "interfaces": ["Cellular", "Wi-Fi", "Bluetooth", "CAN", "Automotive Ethernet"],
+      "trust_zone": "Wireless Edge Domain",
+      "critical_functions": [
+        "Remote OTA firmware reception",
+        "Vehicle location and telematics telemetry dispatch",
+        "Cellular communication with OEM backend",
+        "Short-range wireless pairing (Wi-Fi, Bluetooth)"
+      ]
+    },
+    {
+      "id": "COMP-CGW",
+      "name": "Central Gateway (CGW)",
+      "description": "High-assurance central gateway controller responsible for domain separation, message routing, protocol translation, firewall filtering, and diagnostic security.",
+      "interfaces": ["CAN", "Automotive Ethernet", "OBD-II"],
+      "trust_zone": "Core Vehicle Security Gateway",
+      "critical_functions": [
+        "Inter-domain routing between Ethernet and CAN buses",
+        "Stateful packet inspection and CAN frame filtering",
+        "Diagnostic session management and security access authentication",
+        "Secure onboard communication (SecOC) verification"
+      ]
+    },
+    {
+      "id": "COMP-IVI",
+      "name": "Infotainment Unit (IVI)",
+      "description": "In-vehicle infotainment and multimedia head unit providing digital cluster integration, consumer device interfaces, navigation, and passenger apps.",
+      "interfaces": ["USB", "Bluetooth", "Wi-Fi", "Automotive Ethernet"],
+      "trust_zone": "Infotainment Domain (Non-Safety Critical)",
+      "critical_functions": [
+        "Media playback and user display rendering",
+        "Smartphone integration (CarPlay, Android Auto)",
+        "Passenger Wi-Fi hotspot and Bluetooth audio",
+        "USB firmware and media reading"
+      ]
+    },
+    {
+      "id": "COMP-OBD",
+      "name": "OBD-II Diagnostic Port",
+      "description": "Physical 16-pin diagnostic connector located under the dashboard enabling dealership and aftermarket diagnostic tools to access vehicle buses via UDS.",
+      "interfaces": ["CAN", "UDS over CAN"],
+      "trust_zone": "Physical Maintenance Interface",
+      "critical_functions": [
+        "Diagnostic Trouble Code (DTC) reading and clearing",
+        "ECU routine execution and calibration via UDS",
+        "Service tool diagnostic communication"
+      ]
+    },
+    {
+      "id": "COMP-ECU-PT",
+      "name": "Powertrain ECU",
+      "description": "Safety-critical Electronic Control Unit governing powertrain management, electronic throttle control, engine/motor torque actuation, and transmission states.",
+      "interfaces": ["CAN"],
+      "trust_zone": "Powertrain Control Domain (Safety Critical)",
+      "critical_functions": [
+        "Engine and electric drive torque management",
+        "Throttle actuation and transmission control",
+        "Powertrain failsafe monitoring"
+      ]
+    },
+    {
+      "id": "COMP-ECU-BRK",
+      "name": "Brake ECU",
+      "description": "Safety-critical Electronic Control Unit controlling hydraulic braking, Anti-lock Braking System (ABS), Electronic Stability Control (ESC), and autonomous emergency deceleration.",
+      "interfaces": ["CAN"],
+      "trust_zone": "Chassis Control Domain (Safety Critical)",
+      "critical_functions": [
+        "Hydraulic brake pressure regulation",
+        "Anti-lock braking (ABS) and Electronic Stability Control (ESC)",
+        "Autonomous Emergency Braking (AEB) deceleration actuation"
+      ]
+    },
+    {
+      "id": "COMP-BACKEND",
+      "name": "OTA Backend Server & Mobile App API",
+      "description": "OEM cloud infrastructure hosting firmware repositories, cryptographic signing servers, fleet telematics analytics, and customer mobile application endpoints.",
+      "interfaces": ["Cellular", "Internet / REST API"],
+      "trust_zone": "Cloud OEM Infrastructure (External)",
+      "critical_functions": [
+        "Firmware update package generation, signing, and dispatch",
+        "Customer mobile API authentication (remote locking, HVAC preconditioning)",
+        "Fleet health monitoring and telemetry ingestion"
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "name": "Cellular",
+      "type": "Wireless Long-Range",
+      "protocols": ["4G LTE", "5G NR", "TCP/IP", "TLS 1.3", "MQTT"]
+    },
+    {
+      "name": "Wi-Fi",
+      "type": "Wireless Medium-Range",
+      "protocols": ["IEEE 802.11a/b/g/n/ac", "WPA3", "WPA2-Enterprise"]
+    },
+    {
+      "name": "Bluetooth",
+      "type": "Wireless Short-Range",
+      "protocols": ["Bluetooth Classic (A2DP, HFP)", "Bluetooth Low Energy (BLE 5.0)"]
+    },
+    {
+      "name": "Automotive Ethernet",
+      "type": "Wired High-Bandwidth",
+      "protocols": ["100BASE-T1", "1000BASE-T1", "IEEE 802.3bw", "SOME/IP", "DoIP (ISO 13400)"]
+    },
+    {
+      "name": "CAN",
+      "type": "Wired Differential Bus",
+      "protocols": ["Classical CAN (ISO 11898-2)", "CAN-FD", "AUTOSAR SecOC"]
+    },
+    {
+      "name": "UDS over CAN",
+      "type": "Diagnostic Protocol",
+      "protocols": ["ISO 14229-1 (UDS)", "ISO 15765-2 (DoCAN TP)"]
+    },
+    {
+      "name": "USB",
+      "type": "Wired Serial Bus",
+      "protocols": ["USB 2.0 / USB 3.0", "Mass Storage Class (MSC)", "CDC-ECM"]
+    },
+    {
+      "name": "Internet / REST API",
+      "type": "Cloud Network Interface",
+      "protocols": ["HTTPS", "TLS 1.3", "RESTful JSON", "OAuth 2.0 / OpenID Connect"]
+    }
+  ],
+  "trust_boundaries": [
+    {
+      "id": "TB-01",
+      "name": "External Wireless Boundary",
+      "description": "Demarcates unauthenticated cellular radio frequency, public Wi-Fi, and open Bluetooth environments from vehicle-mounted wireless transceivers."
+    },
+    {
+      "id": "TB-02",
+      "name": "Physical Diagnostic and Peripheral Boundary",
+      "description": "Demarcates user-accessible physical vehicle connections (OBD-II port, consumer USB sockets) from internal vehicle networks."
+    },
+    {
+      "id": "TB-03",
+      "name": "Infotainment Domain Boundary",
+      "description": "Separates the rich-OS consumer multimedia domain (IVI) from the vehicle security gateway, restricting direct control bus access."
+    },
+    {
+      "id": "TB-04",
+      "name": "Central Gateway Boundary",
+      "description": "Isolates external-facing network domains (telematics, diagnostic, IVI) from safety-critical vehicle internal control buses."
+    },
+    {
+      "id": "TB-05",
+      "name": "Critical Vehicle Control Network Boundary",
+      "description": "Encloses the high-integrity powertrain and chassis CAN buses where actuator command frames (torque, brake pressure) circulate."
+    },
+    {
+      "id": "TB-06",
+      "name": "Cloud Backend and Mobile API Boundary",
+      "description": "Separates OEM cloud data centers and public mobile client applications from vehicle telematics edge nodes."
+    }
+  ],
+  "data_flows": [
+    {
+      "id": "DF-01",
+      "name": "Over-The-Air (OTA) Firmware Update Dispatch",
+      "source": "OTA Backend Server & Mobile App API",
+      "destination": "Powertrain ECU / Brake ECU",
+      "path": ["OTA Backend Server & Mobile App API", "Telematics Control Unit (TCU)", "Central Gateway (CGW)", "Powertrain ECU / Brake ECU"],
+      "protocols": ["HTTPS", "DoIP", "UDS over CAN"],
+      "crossed_boundaries": ["TB-06", "TB-01", "TB-04", "TB-05"]
+    },
+    {
+      "id": "DF-02",
+      "name": "Vehicle Telemetry & Diagnostic Ingestion",
+      "source": "Powertrain ECU / Brake ECU",
+      "destination": "OTA Backend Server & Mobile App API",
+      "path": ["Powertrain ECU / Brake ECU", "Central Gateway (CGW)", "Telematics Control Unit (TCU)", "OTA Backend Server & Mobile App API"],
+      "protocols": ["CAN", "SOME/IP", "MQTT / TLS"],
+      "crossed_boundaries": ["TB-05", "TB-04", "TB-01", "TB-06"]
+    },
+    {
+      "id": "DF-03",
+      "name": "Dealership Diagnostic Routine Execution",
+      "source": "OBD-II Diagnostic Port",
+      "destination": "Powertrain ECU / Brake ECU",
+      "path": ["OBD-II Diagnostic Port", "Central Gateway (CGW)", "Powertrain ECU / Brake ECU"],
+      "protocols": ["UDS over CAN", "CAN"],
+      "crossed_boundaries": ["TB-02", "TB-04", "TB-05"]
+    },
+    {
+      "id": "DF-04",
+      "name": "Mobile Device In-Cabin Media & Telephony",
+      "source": "External Smartphone",
+      "destination": "Infotainment Unit (IVI)",
+      "path": ["External Smartphone", "Infotainment Unit (IVI)"],
+      "protocols": ["Bluetooth A2DP", "Wi-Fi Direct"],
+      "crossed_boundaries": ["TB-01"]
+    },
+    {
+      "id": "DF-05",
+      "name": "External USB Media Read",
+      "source": "External USB Device",
+      "destination": "Infotainment Unit (IVI)",
+      "path": ["External USB Device", "Infotainment Unit (IVI)"],
+      "protocols": ["USB Mass Storage"],
+      "crossed_boundaries": ["TB-02"]
+    },
+    {
+      "id": "DF-06",
+      "name": "Remote Mobile Vehicle Command",
+      "source": "OTA Backend Server & Mobile App API",
+      "destination": "Central Gateway (CGW)",
+      "path": ["OTA Backend Server & Mobile App API", "Telematics Control Unit (TCU)", "Central Gateway (CGW)"],
+      "protocols": ["HTTPS REST API", "Automotive Ethernet"],
+      "crossed_boundaries": ["TB-06", "TB-01", "TB-04"]
+    }
+  ]
+}

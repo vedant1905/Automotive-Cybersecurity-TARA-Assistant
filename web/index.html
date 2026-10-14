@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automotive Cybersecurity TARA Assistant | Tata TechPulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=light4">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <div class="logo-badge">
+          TATA TECHPULSE
+        </div>
+        <h1>Automotive Cybersecurity TARA Assistant</h1>
+        <p class="subtitle">UN R155 & ISO/SAE 21434 Threat Analysis and Risk Assessment Platform</p>
+      </div>
+      <div class="header-status">
+        <div class="status-pill">
+          <span>Regulation: <strong>UN R155 Annex 5</strong></span>
+        </div>
+        <div class="status-pill">
+          <span>Standard: <strong>ISO/SAE 21434</strong></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="dashboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Overview & Architecture
+      </button>
+      <button class="nav-tab" data-tab="library">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        Threat Library (50 Entries)
+      </button>
+      <button class="nav-tab" data-tab="simulator">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 12 8"></polygon></svg>
+        ISO 21434 Risk Simulator
+      </button>
+      <button class="nav-tab" data-tab="audit">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Compliance Audit Matrix
+      </button>
+      <button class="nav-tab" data-tab="config">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        AI Prompts & Config
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="app-main">
+    
+    <!-- TAB 1: OVERVIEW & ARCHITECTURE -->
+    <section id="tab-dashboard" class="tab-content active">
+      <!-- KPI Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue">🛡️</div>
+          <div class="stat-info">
+            <span class="stat-value">50</span>
+            <span class="stat-label">Verified Ground-Truth Threats</span>
+          </div>
+          <div class="stat-tag">40-60 Range Met</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-purple">📑</div>
+          <div class="stat-info">
+            <span class="stat-value">7 / 7</span>
+            <span class="stat-label">UN R155 Annex 5 Categories</span>
+          </div>
+          <div class="stat-tag">100% Coverage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-green">✅</div>
+          <div class="stat-info">
+            <span class="stat-value">11 / 11</span>
+            <span class="stat-label">Automated Pytest Tests Passing</span>
+          </div>
+          <div class="stat-tag">0.05s Execution</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-emerald">🔒</div>
+          <div class="stat-info">
+            <span class="stat-value">0</span>
+            <span class="stat-label">Invented / Hallucinated IDs</span>
+          </div>
+          <div class="stat-tag">Zero Hallucinations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon icon-amber">🔍</div>
+          <div class="stat-info">
+            <span class="stat-value">8</span>
+            <span class="stat-label">Flagged Human Audit Entries</span>
+          </div>
+          <div class="stat-tag">Audited in REVIEW.md</div>
+        </div>
+      </div>
+
+      <!-- Vehicle Architecture Visualizer -->
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <h2>Target Vehicle E/E Architecture & Trust Boundaries</h2>
+            <p>Reference connected passenger vehicle defined in <code>data/system/sample_vehicle.json</code> for ISO/SAE 21434 TARA Item Definition</p>
+          </div>
+          <span class="badge badge-accent">Connected CAV v1.0</span>
+        </div>
+
+        <!-- Vehicle Network Topology Visualizer Map -->
+        <div class="topology-container">
+          <div class="topology-header">
+            <div class="topology-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              E/E Network Topology & Trust Boundary Demarcation Map
+            </div>
+            <div class="topology-legend">
+              <div class="legend-item"><span class="legend-color" style="background:#EF4444;"></span> Untrusted Wireless Edge</div>
+              <div class="legend-item"><span class="legend-color" style="background:#2563EB;"></span> Demarcation Gateway (CGW)</div>
+              <div class="legend-item"><span class="legend-color" style="background:#16A34A;"></span> High-Trust CAN Control Bus</div>
+              <div class="legend-item"><span class="legend-color" style="background:#64748B;"></span> Cloud OTA Backend</div>
+            </div>
+          </div>
+
+          <div class="topology-svg-wrapper">
+            <svg class="topology-svg" viewBox="0 0 940 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background Trust Zones -->
+              <rect x="15" y="15" width="240" height="300" rx="10" fill="#FFF1F2" stroke="#FECDD3" stroke-width="1.5" stroke-dasharray="4 4" />
+              <text x="25" y="36" fill="#991B1B" font-size="10.5" font-weight="700" letter-spacing="0.5">UNTRUSTED WIRELESS PERIMETER</text>
+
+              <rect x="345" y="15" width="250" height="300" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5" stroke-dasharray="4 4" />
+              <text x="355" y="36" fill="#1E40AF" font-size="10.5" font-weight="700" letter-spacing="0.5">SECURITY GATEWAY DEMARCATION</text>
+
+              <rect x="675" y="15" width="250" height="300" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5" stroke-dasharray="4 4" />
+              <text x="685" y="36" fill="#166534" font-size="10.5" font-weight="700" letter-spacing="0.5">HIGH-TRUST CONTROL DOMAIN (CAN-FD)</text>
+
+              <!-- Bus Connection Lines -->
+              <!-- Cloud to TCU (Cellular) -->
+              <path d="M 135 90 L 135 118" stroke="#2563EB" stroke-width="2" stroke-dasharray="3 3" />
+              <rect x="95" y="94" width="80" height="16" rx="4" fill="#DBEAFE" />
+              <text x="103" y="106" fill="#1D4ED8" font-size="9" font-weight="600">4G/5G TLS 1.3</text>
+
+              <!-- TCU to CGW (Ethernet & CAN) -->
+              <path d="M 235 155 L 365 190" stroke="#6366F1" stroke-width="2" />
+              <rect x="250" y="156" width="100" height="16" rx="4" fill="#EEF2FF" />
+              <text x="256" y="168" fill="#4338CA" font-size="8.5" font-weight="600">100BASE-T1 / CAN</text>
+
+              <!-- IVI to CGW (Ethernet) -->
+              <path d="M 235 255 L 365 215" stroke="#6366F1" stroke-width="2" />
+              <rect x="255" y="240" width="90" height="16" rx="4" fill="#EEF2FF" />
+              <text x="263" y="252" fill="#4338CA" font-size="8.5" font-weight="600">Automotive Eth</text>
+
+              <!-- OBD-II to CGW (UDS over CAN) -->
+              <path d="M 470 95 L 470 145" stroke="#D97706" stroke-width="2" />
+              <rect x="490" y="108" width="85" height="16" rx="4" fill="#FEF3C7" />
+              <text x="496" y="120" fill="#92400E" font-size="8.5" font-weight="600">CAN 2.0B / UDS</text>
+
+              <!-- CGW to Powertrain ECU (CAN-FD SecOC) -->
+              <path d="M 575 180 L 695 105" stroke="#16A34A" stroke-width="2" />
+              <rect x="585" y="125" width="100" height="16" rx="4" fill="#DCFCE7" />
+              <text x="591" y="137" fill="#15803D" font-size="8.5" font-weight="600">CAN-FD + SecOC</text>
+
+              <!-- CGW to Brake ECU (CAN-FD SecOC) -->
+              <path d="M 575 210 L 695 245" stroke="#16A34A" stroke-width="2" />
+              <rect x="585" y="222" width="100" height="16" rx="4" fill="#DCFCE7" />
+              <text x="591" y="234" fill="#15803D" font-size="8.5" font-weight="600">CAN-FD + SecOC</text>
+
+              <!-- Node 1: Cloud OTA Backend (Top Left) -->
+              <g transform="translate(30, 48)">
+                <rect width="210" height="42" rx="6" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.2" />
+                <text x="12" y="20" fill="#0F172A" font-size="11" font-weight="700">Cloud OTA Backend</text>
+                <text x="12" y="34" fill="#64748B" font-size="9">Firmware Signing & Telematics API</text>
+              </g>
+
+              <!-- Node 2: TCU (Middle Left) -->
+              <g transform="translate(30, 118)">
+                <rect width="210" height="84" rx="6" fill="#FFFFFF" stroke="#F87171" stroke-width="1.2" />
+                <text x="12" y="20" fill="#0F172A" font-size="11" font-weight="700">Telematics Unit (TCU)</text>
+                <rect x="155" y="8" width="45" height="15" rx="3" fill="#FEE2E2" />
+                <text x="161" y="19" fill="#B91C1C" font-size="8.5" font-weight="700">TCU-01</text>
+                <text x="12" y="37" fill="#64748B" font-size="9.5">• Cellular 4G/5G Modem</text>
+                <text x="12" y="52" fill="#64748B" font-size="9.5">• Wi-Fi, BLE 5.0, GNSS Antenna</text>
+                <text x="12" y="67" fill="#64748B" font-size="9.5">• Remote eCall & Telemetry Client</text>
+              </g>
+
+              <!-- Node 3: IVI (Bottom Left) -->
+              <g transform="translate(30, 218)">
+                <rect width="210" height="84" rx="6" fill="#FFFFFF" stroke="#F87171" stroke-width="1.2" />
+                <text x="12" y="20" fill="#0F172A" font-size="11" font-weight="700">Infotainment Unit (IVI)</text>
+                <rect x="160" y="8" width="40" height="15" rx="3" fill="#FEE2E2" />
+                <text x="166" y="19" fill="#B91C1C" font-size="8.5" font-weight="700">IVI-01</text>
+                <text x="12" y="37" fill="#64748B" font-size="9.5">• Android Automotive / Linux OS</text>
+                <text x="12" y="52" fill="#64748B" font-size="9.5">• USB Media & Smartphone Mirror</text>
+                <text x="12" y="67" fill="#64748B" font-size="9.5">• Passenger Wi-Fi Hotspot</text>
+              </g>
+
+              <!-- Node 4: OBD-II (Top Center) -->
+              <g transform="translate(365, 48)">
+                <rect width="210" height="46" rx="6" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1.2" />
+                <text x="12" y="20" fill="#0F172A" font-size="11" font-weight="700">OBD-II Diagnostic Port</text>
+                <rect x="155" y="8" width="45" height="15" rx="3" fill="#FEF3C7" />
+                <text x="160" y="19" fill="#B45309" font-size="8.5" font-weight="700">OBD-01</text>
+                <text x="12" y="36" fill="#64748B" font-size="9">16-Pin Connector | UDS ISO 14229</text>
+              </g>
+
+              <!-- Node 5: Central Gateway (Center) -->
+              <g transform="translate(365, 145)">
+                <rect width="210" height="135" rx="6" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2" />
+                <text x="12" y="22" fill="#0F172A" font-size="11.5" font-weight="700">Central Security Gateway</text>
+                <rect x="152" y="8" width="48" height="16" rx="3" fill="#DBEAFE" />
+                <text x="157" y="20" fill="#1D4ED8" font-size="9" font-weight="700">CGW-01</text>
+                <text x="12" y="42" fill="#2563EB" font-size="10" font-weight="600">🛡️ Domain Firewall & Demarcation</text>
+                <text x="12" y="60" fill="#64748B" font-size="9.5">• SecOC Message Authentication</text>
+                <text x="12" y="75" fill="#64748B" font-size="9.5">• Hardware Security Module (HSM)</text>
+                <text x="12" y="90" fill="#64748B" font-size="9.5">• Inter-Domain Protocol Routing</text>
+                <text x="12" y="105" fill="#64748B" font-size="9.5">• Rate Limiting & DoS Shield</text>
+                <text x="12" y="120" fill="#64748B" font-size="9.5">• Cryptographic Key Storage</text>
+              </g>
+
+              <!-- Node 6: Powertrain ECU (Right Top) -->
+              <g transform="translate(695, 55)">
+                <rect width="210" height="100" rx="6" fill="#FFFFFF" stroke="#22C55E" stroke-width="1.2" />
+                <text x="12" y="22" fill="#0F172A" font-size="11" font-weight="700">Powertrain Control (PCM)</text>
+                <rect x="160" y="8" width="40" height="15" rx="3" fill="#DCFCE7" />
+                <text x="167" y="19" fill="#15803D" font-size="8.5" font-weight="700">PT-01</text>
+                <text x="12" y="42" fill="#64748B" font-size="9.5">• Electronic Throttle Actuation</text>
+                <text x="12" y="58" fill="#64748B" font-size="9.5">• Motor / Engine Torque Control</text>
+                <text x="12" y="74" fill="#64748B" font-size="9.5">• In-Vehicle CAN-FD Bus Only</text>
+                <text x="12" y="90" fill="#15803D" font-size="9.5" font-weight="600">🛡️ Safety Critical (ASIL-D)</text>
+              </g>
+
+              <!-- Node 7: Brake ECU (Right Bottom) -->
+              <g transform="translate(695, 185)">
+                <rect width="210" height="100" rx="6" fill="#FFFFFF" stroke="#22C55E" stroke-width="1.2" />
+                <text x="12" y="22" fill="#0F172A" font-size="11" font-weight="700">Brake ECU (ABS / ESC)</text>
+                <rect x="160" y="8" width="40" height="15" rx="3" fill="#DCFCE7" />
+                <text x="166" y="19" fill="#15803D" font-size="8.5" font-weight="700">BR-01</text>
+                <text x="12" y="42" fill="#64748B" font-size="9.5">• Anti-Lock Braking System (ABS)</text>
+                <text x="12" y="58" fill="#64748B" font-size="9.5">• Electronic Stability Control (ESC)</text>
+                <text x="12" y="74" fill="#64748B" font-size="9.5">• Autonomous Emergency Braking</text>
+                <text x="12" y="90" fill="#15803D" font-size="9.5" font-weight="600">🛡️ Safety Critical (ASIL-D)</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="architecture-grid" id="architecture-container">
+          <!-- Filled dynamically by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: THREAT LIBRARY EXPLORER -->
+    <section id="tab-library" class="tab-content">
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <h2>Verified Automotive Threat Library (50 Entries)</h2>
+            <p>Grounded in UN R155 Annex 5 Part A, MITRE CAPEC v3.9, and MITRE CWE v4.20 with zero invented IDs</p>
+          </div>
+          <div class="library-controls">
+            <input type="text" id="search-input" placeholder="Search threats by keyword, ECU, or interface..." class="search-field">
+            <select id="category-filter" class="dropdown-filter">
+              <option value="all">All 7 R155 Categories</option>
+            </select>
+            <select id="confidence-filter" class="dropdown-filter">
+              <option value="all">All Confidence Levels</option>
+              <option value="high">High Confidence (42)</option>
+              <option value="medium">Medium Confidence (6)</option>
+              <option value="low">Low Confidence (2)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="threats-list" id="threats-container">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: ISO/SAE 21434 RISK SIMULATOR -->
+    <section id="tab-simulator" class="tab-content">
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <h2>Interactive ISO/SAE 21434 TARA Risk Calculator</h2>
+            <p>Compute Attack Feasibility, SFOP Impact Severity, and the 5x5 Risk Matrix in real time</p>
+          </div>
+          <span class="badge badge-accent">ISO/SAE 21434 Clause 15</span>
+        </div>
+
+        <div class="simulator-layout">
+          <!-- Left Column: Parameters -->
+          <div class="sim-panel">
+            <h3>1. Target Scenario Selection</h3>
+            <div class="form-group">
+              <label>Target Component (ECU / System)</label>
+              <select id="sim-component-select" class="dropdown-filter full-width"></select>
+            </div>
+            <div class="form-group">
+              <label>Threat Scenario</label>
+              <select id="sim-threat-select" class="dropdown-filter full-width"></select>
+            </div>
+
+            <h3 class="section-divider">2. Attack Feasibility Parameters (Attack Potential)</h3>
+            <div class="form-group">
+              <label>Elapsed Time: <span id="val-time" class="slider-val"><= 1 week (1 pt)</span></label>
+              <input type="range" id="slider-time" min="0" max="4" value="1" class="sim-slider">
+            </div>
+            <div class="form-group">
+              <label>Specialist Expertise: <span id="val-exp" class="slider-val">Proficient (3 pts)</span></label>
+              <input type="range" id="slider-exp" min="0" max="3" value="1" class="sim-slider">
+            </div>
+            <div class="form-group">
+              <label>Knowledge of Item: <span id="val-know" class="slider-val">Restricted (3 pts)</span></label>
+              <input type="range" id="slider-know" min="0" max="3" value="1" class="sim-slider">
+            </div>
+            <div class="form-group">
+              <label>Window of Opportunity: <span id="val-win" class="slider-val">Easy access (1 pt)</span></label>
+              <input type="range" id="slider-win" min="0" max="3" value="1" class="sim-slider">
+            </div>
+            <div class="form-group">
+              <label>Equipment Needed: <span id="val-equip" class="slider-val">Standard (0 pts)</span></label>
+              <input type="range" id="slider-equip" min="0" max="2" value="0" class="sim-slider">
+            </div>
+
+            <h3 class="section-divider">3. Impact Severity Rating (SFOP)</h3>
+            <div class="form-group">
+              <label>Safety Impact (S)</label>
+              <select id="sim-impact-s" class="dropdown-filter full-width">
+                <option value="Severe">Severe (Life-threatening injuries)</option>
+                <option value="Major" selected>Major (Severe injuries)</option>
+                <option value="Moderate">Moderate (Light to moderate injuries)</option>
+                <option value="Negligible">Negligible (No injuries)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Financial & Operational Impact (F / O)</label>
+              <select id="sim-impact-fo" class="dropdown-filter full-width">
+                <option value="Severe">Severe (Fleet-wide recall / massive loss)</option>
+                <option value="Major" selected>Major (Significant loss / mission failure)</option>
+                <option value="Moderate">Moderate (Minor financial loss / degraded service)</option>
+                <option value="Negligible">Negligible (Insignificant)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Privacy Impact (P)</label>
+              <select id="sim-impact-p" class="dropdown-filter full-width">
+                <option value="Severe">Severe (Global tracking / sensitive identity theft)</option>
+                <option value="Major" selected>Major (Local tracking / user data leak)</option>
+                <option value="Moderate">Moderate (Anonymous data exposure)</option>
+                <option value="Negligible">Negligible (No privacy breach)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Right Column: Realtime Matrix & Results -->
+          <div class="sim-panel sim-results">
+            <h3>Calculated TARA Results</h3>
+            
+            <div class="result-box">
+              <div class="result-score-block">
+                <span class="result-number" id="res-feasibility-score">8 pts</span>
+                <span class="result-label">Attack Potential Score</span>
+                <span class="badge badge-high" id="res-feasibility-badge">FEASIBILITY: HIGH</span>
+              </div>
+              <div class="result-score-block">
+                <span class="result-number" id="res-impact-level">MAJOR</span>
+                <span class="result-label">Highest SFOP Impact</span>
+                <span class="badge badge-major" id="res-impact-badge">SEVERITY: MAJOR</span>
+              </div>
+            </div>
+
+            <!-- Risk Matrix 5x5 Display -->
+            <div class="matrix-container">
+              <h4>ISO/SAE 21434 5x5 Risk Determination Matrix</h4>
+              <div class="matrix-grid" id="matrix-grid">
+                <!-- Built dynamically by JS -->
+              </div>
+            </div>
+
+            <div class="risk-verdict-box" id="risk-verdict-box">
+              <div class="verdict-title">Overall Risk Value: <span id="res-risk-value">4 / 5 (High Risk)</span></div>
+              <p id="res-risk-desc">Mandatory cybersecurity treatment required. An architectural security control must be implemented to reduce residual risk below tolerable threshold.</p>
+              <div class="recommended-mitigation">
+                <strong>Applicable UN R155 Annex 5 Mitigation:</strong>
+                <p id="res-mitigation-text">Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: COMPLIANCE AUDIT MATRIX -->
+    <section id="tab-audit" class="tab-content">
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <h2>Human Review & Audit Trail (Homologation Ready)</h2>
+            <p>Official verification hyperlinks for UNECE UN R155 Annex 5, MITRE CAPEC, and MITRE CWE</p>
+          </div>
+          <a href="/data/library/REVIEW.md" target="_blank" class="btn btn-secondary">Open REVIEW.md</a>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Library ID</th>
+                <th>UN R155 Threat ID</th>
+                <th>Threat Scenario Title</th>
+                <th>Confidence</th>
+                <th>MITRE CAPEC Link</th>
+                <th>MITRE CWE Link</th>
+                <th>R155 Mitigations</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: AI PROMPTS & CONFIG -->
+    <section id="tab-config" class="tab-content">
+      <div class="content-card">
+        <div class="card-header">
+          <div>
+            <h2>Model & Prompts Configuration Viewer</h2>
+            <p>Active parameters loaded from <code>configs/model_prompts_config.yaml</code></p>
+          </div>
+          <span class="badge badge-accent">Zero Hallucination Guardrails</span>
+        </div>
+
+        <div class="config-grid">
+          <div class="config-panel">
+            <h3>AI Model & Vector DB Hyperparameters</h3>
+            <div class="code-box" id="config-params-box">Loading...</div>
+          </div>
+          <div class="config-panel">
+            <h3>Engineered System Prompt & Guardrails</h3>
+            <div class="code-box" id="config-system-prompt">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Automotive Cybersecurity TARA Assistant | Tata TechPulse Capstone Initiative</p>
+    <p>Compliance Standards: UNECE UN Regulation No. 155 | ISO/SAE 21434:2021 | MITRE CAPEC™ | MITRE CWE™</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

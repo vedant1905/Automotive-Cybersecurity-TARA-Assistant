@@ -1,0 +1,121 @@
+# ==============================================================================
+# AUTOMOTIVE CYBERSECURITY TARA ASSISTANT - MODEL & PROMPTS CONFIGURATION
+# Project: Tata TechPulse Capstone
+# Standards: UN Regulation No. 155 (Annex 5), ISO/SAE 21434:2021, MITRE CAPEC/CWE
+# ==============================================================================
+
+model_configuration:
+  llm:
+    provider: "google_genai" # or "ollama" / "openai" / "huggingface"
+    model_name: "gemini-1.5-pro"
+    fallback_model: "gemini-1.5-flash"
+    temperature: 0.1 # Low temperature for deterministic, factual, zero-hallucination output
+    top_p: 0.95
+    max_output_tokens: 2048
+    strict_json_mode: true
+
+  embedding:
+    model_name: "sentence-transformers/all-MiniLM-L6-v2"
+    dimension: 384
+    normalize_embeddings: true
+
+  vector_database:
+    type: "chromadb"
+    collection_name: "automotive_threat_library"
+    persist_directory: "data/chroma_db"
+    distance_metric: "cosine"
+    similarity_top_k: 5
+    metadata_filters:
+      - "category"
+      - "affected_components"
+      - "affected_interfaces"
+
+# ==============================================================================
+# PROMPT TEMPLATES & GUARDRAILS
+# ==============================================================================
+
+prompts_configuration:
+
+  system_prompt: |
+    You are an expert Automotive Cybersecurity TARA (Threat Analysis and Risk Assessment) Analyst.
+    You operate strictly within the engineering frameworks defined by ISO/SAE 21434:2021 and UN Regulation No. 155 (UN R155).
+    
+    NON-NEGOTIABLE COMPLIANCE RULES:
+    1. ZERO HALLUCINATED IDENTIFIERS: You must NEVER invent, assume, or fabricate any CAPEC ID, CWE ID, CVE ID, or UN R155 Threat/Mitigation ID.
+    2. GROUND TRUTH CITATIONS: All threat mappings and mitigations must be derived directly from the provided verified Threat Library and Item Definition context.
+    3. DETERMINISTIC EVALUATION: When scoring attack feasibility or impact, follow the exact formulas and parameter matrices specified in ISO/SAE 21434 Section 15.
+    4. UNCERTAINTY HANDLING: If an interface or component cannot be definitively mapped to a known threat, explicitly flag the scenario with "mapping_confidence: low" and "needs_human_review: true".
+
+  tara_pipeline_prompts:
+
+    # Step 1: Asset Identification & Threat Scenario Generation
+    asset_threat_identification: |
+      You are analyzing a target vehicle subsystem from the Item Definition:
+      Subsystem / Component: {component_name}
+      Interfaces: {component_interfaces}
+      Trust Boundary: {component_trust_zone}
+      Critical Functions: {component_critical_functions}
+
+      Retrieved Ground-Truth Threats from Knowledge Base:
+      {retrieved_threat_context}
+
+      TASK:
+      1. Correlate the component's interfaces and critical functions against the retrieved ground-truth threats.
+      2. Identify the applicable Cybersecurity Properties violated (Confidentiality, Integrity, Availability).
+      3. Generate a concrete automotive threat scenario detailing the attack path from the untrusted boundary to the target actuator or controller.
+      4. Output the matching verified UN R155 threat IDs and CAPEC attack patterns verbatim from the retrieved context.
+
+    # Step 2: ISO/SAE 21434 Attack Feasibility Assessment
+    attack_feasibility_scoring: |
+      Evaluate the Attack Feasibility for the following Threat Scenario:
+      Threat Scenario: {threat_scenario}
+      Target Component: {component_name}
+      Attack Surface / Interface: {attack_interface}
+
+      Score the scenario across the 5 ISO/SAE 21434 Attack Potential parameters:
+      1. Elapsed Time:
+         - <= 1 day (0 pts) | <= 1 week (1 pt) | <= 1 month (4 pts) | <= 6 months (10 pts) | > 6 months (19 pts)
+      2. Specialist Expertise:
+         - Layman (0 pts) | Proficient (3 pts) | Expert (6 pts) | Multiple Experts (8 pts)
+      3. Knowledge of the Item:
+         - Public (0 pts) | Restricted (3 pts) | Confidential (7 pts) | Strictly Confidential (11 pts)
+      4. Window of Opportunity:
+         - Unlimited (0 pts) | Easy (1 pt) | Moderate (4 pts) | Difficult (10 pts)
+      5. Equipment:
+         - Standard (0 pts) | Specialized (4 pts) | Bespoke (7 pts)
+
+      OUTPUT:
+      - Points assigned per parameter with engineering justification.
+      - Total Attack Potential Score.
+      - Feasibility Level: High (0-13 pts) | Medium (14-19 pts) | Low (20-24 pts) | Very Low (>=25 pts).
+
+    # Step 3: SFOP Impact Rating Evaluation
+    impact_rating: |
+      Assess the damage consequences of a successful exploit for:
+      Threat Scenario: {threat_scenario}
+      Impacted Functions: {critical_functions}
+
+      Rate the impact severity (Negligible, Moderate, Major, Severe) across the 4 SFOP dimensions:
+      1. Safety (S): Physical harm or loss of life (ISO 26262 correlation).
+      2. Financial (F): Economic losses to vehicle owner, fleet operator, or OEM.
+      3. Operational (O): Disruption of normal vehicle operation or mobility services.
+      4. Privacy (P): Unauthorized access to, exfiltration of, or tracking of driver/passenger personal data.
+
+      OUTPUT:
+      - Highest applicable impact severity rating with technical rationale.
+
+    # Step 4: ISO/SAE 21434 Risk Matrix & Determination
+    risk_determination: |
+      Given:
+      - Attack Feasibility: {feasibility_level}
+      - Impact Rating: {impact_level}
+
+      Map onto the ISO/SAE 21434 5x5 Risk Matrix:
+      Determine the overall Risk Value (integer from 1 to 5):
+      - 1: Negligible risk (retained)
+      - 2: Low risk (mitigate if cost-effective)
+      - 3: Medium risk (mitigation required)
+      - 4: High risk (mandatory architectural mitigation)
+      - 5: Critical risk (unacceptable safety/security hazard)
+
+      Cite the official UN R155 Annex 5 mitigations (e.g., M7, M10, M12, M21, M22) required to reduce residual risk.

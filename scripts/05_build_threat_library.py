@@ -1,0 +1,311 @@
+import os
+import sys
+import csv
+import json
+
+sys.path.insert(0, os.path.abspath("."))
+from scripts.propose_threat_scope import SELECTION
+
+THREATS_CSV = os.path.join("data", "processed", "r155_threats.csv")
+MITIGATIONS_CSV = os.path.join("data", "processed", "r155_mitigations.csv")
+CAPEC_CSV = os.path.join("data", "processed", "capec.csv")
+CWE_CSV = os.path.join("data", "processed", "cwe.csv")
+MAPPED_JSON = os.path.join("data", "processed", "mapped_threats.json")
+OUTPUT_LIB = os.path.join("data", "library", "threat_library.json")
+
+# Detailed original entries for all 50 selected threats
+# Strictly adhering to:
+# 1. Original 2-3 sentence technical description in own words
+# 2. Exactly one concrete attack example sentence
+# 3. Validated CAPEC, CWE, and R155 IDs
+THREAT_CONTENT = {
+    "1.1": {
+        "title": "Insider Privilege Abuse on Cloud OTA Backend",
+        "description": "Disgruntled or compromised cloud infrastructure administrators abuse legitimate privileged access to backend vehicle management servers. This allows adversaries to alter firmware deployment jobs or access vehicle telemetry databases without triggering perimeter alarms. Such actions undermine the entire fleet trust chain before binaries are transmitted over the air.",
+        "attack_example": "A rogue backend administrator injects an unauthorized diagnostic key into the fleet provisioning server to grant arbitrary debug privileges on production vehicles."
+    },
+    "1.2": {
+        "title": "Remote Exploitation of Cloud Telematics API Server",
+        "description": "External adversaries exploit software vulnerabilities such as unpatched services or web application flaws in the OEM cloud telematics backend. By breaching the internet-facing server boundary, the attacker establishes persistence within the fleet orchestration infrastructure. This provides an external pivot point to interact directly with connected vehicles in the field.",
+        "attack_example": "An external attacker executes a SQL injection exploit against the fleet telematics REST portal to extract authentication tokens for connected vehicle sessions."
+    },
+    "1.3": {
+        "title": "Physical Device Compromise of Vehicle Data Center Server",
+        "description": "Unauthorized individuals gain physical access to server racks or hardware hosting connected vehicle backend infrastructure. The attacker connects malicious physical media to execute automated keystroke payloads or access unencrypted maintenance ports. This compromises physical server integrity independently of network firewall controls.",
+        "attack_example": "An intruder inserts a malicious USB rubber ducky device into an on-premises fleet management server rack to trigger an out-of-band reverse shell."
+    },
+    "2.1": {
+        "title": "Distributed Denial of Service on OEM Backend Infrastructure",
+        "description": "High-volume network flooding attacks target OEM backend endpoints and API gateways managing fleet telematics and remote services. The resulting service disruption prevents connected vehicles from synchronizing telemetry, receiving critical security warnings, or negotiating cryptographic sessions. Prolonged outages render cloud-dependent safety and diagnostic services unavailable.",
+        "attack_example": "A botnet floods the cloud telematics ingestion endpoint with malformed HTTP requests, blocking real-time crash notifications from entering emergency dispatch services."
+    },
+    "3.1": {
+        "title": "Insider Exfiltration of Fleet and Customer PII",
+        "description": "Internal staff with database administrative permissions intentionally access and extract confidential driver location records and vehicle identifiers. This insider threat bypasses typical edge intrusion detection mechanisms due to valid credentials. The resulting data breach exposes sensitive mobility patterns and personal vehicle telemetry.",
+        "attack_example": "A data engineer copies sensitive GPS tracking records and vehicle VIN mappings onto a personal external drive prior to employment termination."
+    },
+    "3.2": {
+        "title": "Multi-Tenant Cloud Storage Misconfiguration and Data Leakage",
+        "description": "Misconfigured access controls or storage bucket permissions on third-party cloud hosting infrastructure expose stored automotive telemetry. Attackers or unauthorized cloud tenants can enumerate unsecured object storage containing vehicle crash logs and diagnostic dumps. This failure in multi-tenant data isolation leads to widespread disclosure of proprietary system telemetry.",
+        "attack_example": "An unsecured Amazon S3 cloud bucket containing unencrypted vehicle sensor telemetry and camera snapshots is indexed by open-source intelligence scanners."
+    },
+    "3.3": {
+        "title": "Web Application Breach of Fleet Management Database",
+        "description": "Adversaries leverage web-facing application vulnerabilities to bypass authentication and query production vehicle databases directly. Unauthorized queries reveal vehicle cryptographic seeds, owner identities, and telematics configurations. Compromising this persistent storage layer enables downstream targeted attacks against individual vehicles.",
+        "attack_example": "An attacker exploits an authentication bypass vulnerability in the fleet management web portal to dump customer account credentials and paired vehicle VIN numbers."
+    },
+    "4.1": {
+        "title": "V2X and GNSS Positioning Message Spoofing",
+        "description": "Attackers broadcast falsified wireless messages mimicking legitimate road infrastructure, neighboring vehicles, or satellite navigation signals. The vehicle telematics or infotainment unit accepts these unauthenticated transmissions and propagates corrupted state data to internal control units. This can cause automated driver-assistance modules to react to non-existent road hazards.",
+        "attack_example": "An adversary uses a software-defined radio to transmit spoofed GNSS coordinate signals, causing the vehicle navigation and telematics unit to report an incorrect geographical position."
+    },
+    "4.2": {
+        "title": "Sybil Attack Fabricating Phantom Traffic Nodes",
+        "description": "An adversary creates multiple fake identities across wireless communication channels to simulate the presence of phantom vehicles on the roadway. The vehicle's external communication stack processes these fictitious node transmissions as a congested traffic stream. This can mislead routing algorithms and trigger unwarranted vehicle safety responses.",
+        "attack_example": "A roadside transmitter broadcasts dozens of distinct cooperative awareness messages simulating a major traffic jam, forcing connected vehicles to brake or reroute."
+    },
+    "5.1": {
+        "title": "Arbitrary Code Injection into Cellular Telematics Stream",
+        "description": "Attackers inject malicious binary sequences into open communication streams between the vehicle telematics module and backend networks. If payload integrity and stream boundaries are not strictly validated, the telematics controller executes injected machine instructions. This grants the attacker remote execution capabilities inside the wireless edge domain.",
+        "attack_example": "An attacker injects shellcode into an unencrypted cellular telemetry TCP stream, triggering a stack buffer overflow that executes arbitrary code on the TCU."
+    },
+    "5.2": {
+        "title": "Tampering with In-Transit In-Vehicle Bus Communication",
+        "description": "Adversaries manipulate frame payloads or control parameters while messages transit vehicle gateways and network buses. By modifying critical signal values such as speed, steering angle, or sensor telemetry, the attacker alters vehicle operational behavior. Lack of message authentication enables this unauthorized alteration of in-flight vehicle data.",
+        "attack_example": "An attacker modifies vehicle speed signals inside transit CAN frames from the gateway, deceiving the instrument cluster and advanced driver-assistance controllers."
+    },
+    "5.3": {
+        "title": "In-Flight Overwrite of ECU Flash Memory via Bus Messages",
+        "description": "Communication channels are exploited to overwrite volatile or persistent memory locations within safety-critical microcontrollers. By leveraging unconstrained memory write services or malicious diagnostic frames, an adversary alters operational execution code. Overwriting target memory corrupts execution flow and disables normal fail-safe routines.",
+        "attack_example": "An adversary issues unauthorized diagnostic memory write commands across the internal bus to overwrite safety limit tables in the powertrain controller."
+    },
+    "5.4": {
+        "title": "Malicious Erasure of Safety Calibration Data via Diagnostic Bus",
+        "description": "Adversaries exploit diagnostic communication channels to invoke flash erase or parameter reset routines on target electronic control units. Erasing stored cryptographic certificates, fault tables, or sensor calibrations forces the target subsystem into an unrecoverable fail-safe or limp-home mode. This disrupts continuous vehicle availability and safety operations.",
+        "attack_example": "An attacker transmits diagnostic session commands that execute an unauthenticated routine erase on the brake ECU flash storage, wiping essential brake balance calibrations."
+    },
+    "5.5": {
+        "title": "Unauthorized Parameter Injection across Internal Vehicle Networks",
+        "description": "Adversaries inject arbitrary command parameters and configuration payloads across vehicle buses without encountering validation checks. Target ECUs accept the unauthorized parameters and adjust actuator behavior accordingly. This allows unauthorized manipulation of vehicle subsystems across untrusted bus boundaries.",
+        "attack_example": "An adversary injects modified configuration frames over CAN to adjust throttle sensitivity settings without prior cryptographic authorization."
+    },
+    "6.1": {
+        "title": "Unvalidated Input Processing from External Network Interfaces",
+        "description": "Vehicle electronic control units accept and parse incoming data packets from external sources without validating the origin or integrity of the sender. Processing untrusted packets can trigger memory corruption, logic flaws, or state desynchronization in critical communication stacks. This structural defect allows unverified remote sources to exert control over internal vehicle functions.",
+        "attack_example": "The telematics control unit accepts and executes configuration updates broadcast over an untrusted Wi-Fi connection without verifying certificate chains."
+    },
+    "6.2": {
+        "title": "Man-in-the-Middle Session Hijacking on Automotive Ethernet",
+        "description": "Adversaries position themselves between communicating vehicle nodes on internal Automotive Ethernet links to intercept and alter bidirectional traffic. By spoofing network addresses or ARP tables, the attacker hijacks diagnostic or control sessions in real time. This undermines communication confidentiality and allows covert modification of inter-domain vehicle messages.",
+        "attack_example": "An attacker intercepts Ethernet traffic between the central gateway and infotainment unit to modify diagnostic firmware verification responses."
+    },
+    "6.3": {
+        "title": "Firmware Downgrade and Message Replay via Gateway",
+        "description": "Attackers capture previously valid diagnostic sessions or firmware update streams and replay them against vehicle control modules. Without monotonic counter verification or timestamp freshness checks, target ECUs re-execute obsolete commands or flash superseded firmware versions. This re-introduces known software vulnerabilities that had been previously patched.",
+        "attack_example": "An adversary captures a legacy, vulnerable firmware flash sequence and replays it over CAN to downgrade the powertrain controller firmware."
+    },
+    "7.1": {
+        "title": "Passive Eavesdropping and RF Radiation Sniffing on Vehicle Buses",
+        "description": "Adversaries deploy packet sniffers or radio frequency receivers to capture unencrypted data traversing vehicle buses and wireless links. By monitoring cleartext communications, the attacker extracts diagnostic trouble codes, vehicle operational telemetry, and proprietary message identifiers. This intelligence is leveraged to reverse engineer communication protocols and design targeted exploits.",
+        "attack_example": "An attacker clips an inductive sensor onto the unshielded CAN bus harness to passively record torque commands and vehicle speed signals in cleartext."
+    },
+    "7.2": {
+        "title": "Unauthorized Extraction of Driver Records from Infotainment Storage",
+        "description": "Attackers exploit permissive file system permissions or local debugging services on the infotainment head unit to access stored passenger data. Unprotected local storage exposes call logs, navigation histories, paired phone contacts, and stored credentials. This breach of local data privacy exposes sensitive owner information to unauthorized actors.",
+        "attack_example": "A malicious script running on the infotainment operating system reads stored navigation destination caches and synchronized Bluetooth smartphone address books."
+    },
+    "8.1": {
+        "title": "Resource Exhaustion and Bus Flooding on Vehicle Information Systems",
+        "description": "Adversaries flood vehicle communication networks or infotainment processors with high volumes of junk traffic or malformed frames. The saturated network interfaces and starved processor queues become unable to service legitimate user requests or critical status updates. This renders digital display clusters and interactive vehicle services completely unresponsive.",
+        "attack_example": "An attacker floods the infotainment internal message queue with garbage CAN frames, freezing the digital dashboard display and preventing rear-camera activation."
+    },
+    "9.1": {
+        "title": "Local Privilege Escalation to Root on Telematics OS",
+        "description": "An adversary with limited execution privileges on the telematics control unit exploits local operating system vulnerabilities to attain superuser or root permissions. Gaining administrative control circumvents application sandbox constraints and access control policies. This enables the adversary to manipulate physical bus transceivers and access raw peripheral memory.",
+        "attack_example": "A standard user process on the Linux-based TCU exploits an unpatched kernel vulnerability to escalate privileges to root, gaining unfettered access to the internal CAN interface."
+    },
+    "11.1": {
+        "title": "Malicious CAN Frame Injection from Compromised Peripherals",
+        "description": "A compromised low-criticality ECU or telematics module injects forged control frames onto safety-critical internal CAN buses. Because legacy CAN lack native sender authentication, receiving controllers process the malicious frames as legitimate sensor readings or driver inputs. This enables an attacker to invoke physical actuator responses without physical access to the engine compartment.",
+        "attack_example": "A compromised telematics unit injects high-priority CAN messages demanding deceleration, causing the brake ECU to apply emergency braking unexpectedly."
+    },
+    "12.1": {
+        "title": "Compromise of Over-The-Air Firmware Update Packages",
+        "description": "Adversaries tamper with OTA software distribution pipelines or create fraudulent update packages to flash modified binaries onto vehicle modules. If digital signature verification routines fail or are absent, the target ECU executes the tampered binary upon reboot. This allows attackers to establish persistent, stealthy control over electronic control unit firmware.",
+        "attack_example": "An adversary replaces an authentic TCU update binary with a trojanized payload that bypasses cryptographic checksum checks during OTA installation."
+    },
+    "12.2": {
+        "title": "Tampering with Dealership Diagnostic Software Flashing Tools",
+        "description": "Attackers compromise local technician diagnostic software or workshop service equipment used to program vehicle modules over the OBD-II port. Maliciously altered flashing routines deploy unverified calibrations or modified ECU binaries during routine vehicle maintenance. This compromises vehicle electronic integrity directly within authorized service environments.",
+        "attack_example": "A compromised dealership diagnostic laptop pushes modified engine management maps containing disabled emissions controls to the powertrain ECU via UDS."
+    },
+    "12.3": {
+        "title": "Pre-Update Code Modification Corrupting ECU Software Images",
+        "description": "Adversaries manipulate software images at staging locations prior to formal distribution, corrupting firmware packages before deployment. When the vehicle attempts installation, corrupted blocks cause bootloader verification failures or erratic ECU behavior. This leads to operational failures or bricked control units across the affected vehicle subsystem.",
+        "attack_example": "An attacker modifies binary headers in a firmware staging repository, causing vehicle bootloaders to fail integrity checks and enter a permanent bricked state upon flashing."
+    },
+    "12.4": {
+        "title": "Compromise of OEM Private Cryptographic Signing Keys",
+        "description": "Adversaries steal or forge private cryptographic signing keys belonging to the vehicle manufacturer or third-party ECU tier-1 suppliers. Possessing authentic private keys enables the creation of validly signed, malicious firmware packages that pass all onboard integrity checks. This invalidates the entire Public Key Infrastructure supporting vehicle software security.",
+        "attack_example": "An attacker steals an OEM firmware signing private key from an insecure build server and uses it to sign unauthorized binary modifications for vehicle microcontrollers."
+    },
+    "13.1": {
+        "title": "Denial of Service against Cloud Firmware Update Servers",
+        "description": "Adversaries launch targeted denial of service attacks against cloud infrastructure hosting security updates and software patches. Disrupting server availability prevents vehicles from downloading critical remediation binaries for zero-day vulnerabilities. This leaves vehicles exposed to known exploitable conditions for prolonged periods.",
+        "attack_example": "A coordinated SYN flood knocks the OEM firmware distribution CDN offline, preventing safety-critical recall patches from reaching affected vehicles."
+    },
+    "15.1": {
+        "title": "Social Engineering Exploiting Vehicle Users to Connect Rogue Media",
+        "description": "Vehicle owners or fleet operators are manipulated into connecting malicious hardware dongles or infected USB flash drives to vehicle interfaces. The rogue media executes automated payloads or exploits media parsing libraries upon connection. This leverages human trust to bypass external wireless perimeter protections.",
+        "attack_example": "A vehicle owner is tricked by a phishing email into inserting a branded USB flash drive containing malware under the guise of a complimentary navigation map update."
+    },
+    "15.2": {
+        "title": "Technician Violation of Diagnostic Security Protocols",
+        "description": "Service technicians or maintenance personnel fail to adhere to established security protocols, such as using shared diagnostic credentials or leaving debug modes active. These procedural lapses expose sensitive vehicle diagnostic interfaces to unauthorized manipulation. Failure to maintain operational discipline creates easily exploitable entry points for malicious actors.",
+        "attack_example": "A workshop mechanic leaves a diagnostic gateway unlocked with static factory security keys plugged in overnight, leaving the vehicle bus accessible to passersby."
+    },
+    "16.1": {
+        "title": "Relay and Replay Attacks on Passive Keyless Entry Systems",
+        "description": "Attackers intercept and relay low-frequency and ultra-high-frequency radio signals exchanged between the vehicle immobilizer and the smart key fob. By extending the apparent physical proximity of the key, adversaries unlock vehicle doors and authorize ignition start without physical possession of the key. This exploits missing time-of-flight verification in RF communication protocols.",
+        "attack_example": "Two adversaries use RF transceiver relays to extend the key fob signal from inside a house to the vehicle parked on the driveway, unlocking and driving away the car."
+    },
+    "16.2": {
+        "title": "Remote Spoofing and Manipulation of Fleet Telematics Data",
+        "description": "Adversaries intercept and alter wireless telematics packets sent over cellular networks to falsify cargo conditions or vehicle security states. Manipulating status reports can induce backend systems to issue unauthorized unlock commands or misjudge vehicle safety parameters. This compromises the integrity of remote fleet monitoring and dispatch services.",
+        "attack_example": "An adversary injects false cellular telemetry frames to misreport refrigerated cargo temperature as normal while remotely unlocking vehicle cargo doors."
+    },
+    "16.3": {
+        "title": "Radio Frequency Jamming of Short-Range Vehicle Wireless Links",
+        "description": "Adversaries deploy RF jamming equipment operating on 2.4 GHz and 5 GHz bands to disrupt Bluetooth, Wi-Fi, and short-range sensor transmissions. Saturating these communication bands causes sensor timeouts, drops tire pressure monitoring connections, and disconnects driver smartphone interfaces. This degrades peripheral situational awareness and driver communication channels.",
+        "attack_example": "A broadband radio jammer blocks Bluetooth and Wi-Fi channels, severing communications between wireless tire pressure sensors and the central gateway."
+    },
+    "17.1": {
+        "title": "Compromise of Infotainment OS via Vulnerable Third-Party Apps",
+        "description": "Vulnerabilities in third-party media applications or browser engines running on the infotainment operating system are exploited by external adversaries. Attackers leverage malformed media files or malicious web content to escape application sandboxes and execute code within the head unit. This turns user-installed software into an initial beachhead within the vehicle network.",
+        "attack_example": "A malicious audio file played through a vulnerable third-party streaming app triggers a heap overflow that gives an attacker a command shell on the IVI system."
+    },
+    "18.1": {
+        "title": "Code Execution via Hardware Exploit on Vehicle USB Interface",
+        "description": "Adversaries connect custom hardware peripherals to vehicle USB ports that emulate multiple device classes or deliver malicious input packets. Vulnerabilities in vehicle USB host controller drivers or media parsing stacks are triggered to achieve arbitrary code execution. This compromises the infotainment unit directly through physical consumer ports.",
+        "attack_example": "A malicious USB device presents itself as an Ethernet adapter to the infotainment system and exploits a kernel driver vulnerability to achieve arbitrary kernel execution."
+    },
+    "18.2": {
+        "title": "Malware Infection via Removable Storage Media",
+        "description": "Infected USB storage devices containing malicious autorun scripts or exploited file structures are inserted into vehicle multimedia ports. The infotainment system automatically mounts the volume and parses corrupt file headers, executing hidden malware routines. This allows malicious code to persist and spread within the in-vehicle non-safety domain.",
+        "attack_example": "Inserting an infected USB stick containing a crafted MP3 playlist exploits the media parser to install a persistent backdoor in the infotainment firmware."
+    },
+    "18.3": {
+        "title": "Diagnostic Bus Exploitation via Rogue OBD-II Dongles",
+        "description": "Adversaries plug unauthorized or compromised commercial dongles into the vehicle's physical OBD-II diagnostic port. The rogue device exploits diagnostic session privileges to broadcast unauthorized UDS requests and CAN control frames directly onto internal networks. This completely bypasses wireless firewalls and perimeter defenses.",
+        "attack_example": "A rogue OBD-II dongle executes UDS Security Access brute forcing and transmits unauthorized actuator control routines directly onto the chassis CAN bus."
+    },
+    "19.1": {
+        "title": "Reverse Engineering and Extraction of Proprietary ECU Firmware",
+        "description": "Adversaries extract flash memory contents from electronic control units to reverse engineer proprietary control algorithms and intellectual property. By decompiling embedded firmware, attackers identify software safety checks, cryptographic secrets, and hidden test routines. This facilitates both product piracy and the rapid development of zero-day exploits.",
+        "attack_example": "An adversary desolders a microcontroller flash chip from a powertrain ECU and extracts the binary image to reverse engineer proprietary torque management algorithms."
+    },
+    "19.3": {
+        "title": "Extraction of Cryptographic Keys from ECU Non-Volatile Memory",
+        "description": "Adversaries exploit unencrypted non-volatile storage or insecure memory dump routines to extract symmetric cryptographic keys and certificates. Possessing these keys allows attackers to forge SecOC message authentication codes and decrypt protected bus communications. This compromises the cryptographic foundation protecting inter-ECU communications.",
+        "attack_example": "An attacker dumps EEPROM memory from a telematics module to retrieve the global AES message authentication key used for vehicle bus communications."
+    },
+    "20.1": {
+        "title": "Unauthorized Calibration Manipulation of Powertrain Actuators",
+        "description": "Adversaries alter electronic calibration parameters that govern engine torque limits, maximum vehicle speed, or brake balance settings. By modifying calibration tables stored in flash memory, the vehicle operates outside certified safety and emissions envelopes. This compromises vehicle controllability and regulatory compliance.",
+        "attack_example": "An unauthorized diagnostic routine alters engine mapping tables inside the powertrain ECU to override electronic speed limiters."
+    },
+    "20.3": {
+        "title": "Tampering with Regulatory Monitoring and Odometer Telemetry",
+        "description": "Adversaries block, modify, or inject falsified telemetry frames to circumvent vehicle operational monitoring and odometer recording systems. Altering mileage records, run-time counters, or emissions monitoring data deceives regulatory compliance audits and vehicle tracking systems. This enables fraudulent vehicle resale or evasion of regulatory inspections.",
+        "attack_example": "A microcontroller spliced into the instrument cluster CAN bus filters and modifies odometer pulse messages to prevent mileage accumulation."
+    },
+    "20.5": {
+        "title": "Unauthorized Manipulation and Clearing of Diagnostic Trouble Codes",
+        "description": "Adversaries execute unauthorized UDS diagnostic services to alter or erase Diagnostic Trouble Codes (DTCs) and freeze-frame sensor data. Suppressing active fault warnings prevents drivers and service technicians from detecting critical subsystem failures or security tampering. This conceals ongoing component degradation and safety-critical malfunctions.",
+        "attack_example": "An adversary issues an unauthenticated UDS ClearDiagnosticInformation command to wipe airbag system fault records prior to vehicle safety inspection."
+    },
+    "21.1": {
+        "title": "Tampering and Deletion of Security Audit Event Logs",
+        "description": "Attackers access system event logging services within the central gateway and telematics unit to delete or forge audit trail records. Wiping security event logs eliminates evidence of unauthorized diagnostic sessions, brute-force attempts, and network anomalies. This severely inhibits forensic post-incident investigation.",
+        "attack_example": "An attacker exploits administrative gateway permissions to delete circular event log buffers following an unauthorized firmware modification attempt."
+    },
+    "22.2": {
+        "title": "Deployment of Stealth Malware on Vehicle Edge Controllers",
+        "description": "Adversaries install background malware or persistent rootkits on high-performance vehicle microprocessors such as the TCU or infotainment computer. The resident malware runs stealthily in the background, intercepting communications, exfiltrating sensor data, or awaiting remote activation. This establishes permanent, undetected adversary presence within the vehicle architecture.",
+        "attack_example": "An attacker drops a persistent Linux rootkit into the TCU firmware that opens a covert reverse shell whenever the vehicle connects to a public Wi-Fi hotspot."
+    },
+    "24.1": {
+        "title": "CAN Bus Flooding Inducing Safety Controller Fail-Safe Modes",
+        "description": "Attackers inject dominant bits or endless streams of high-priority message IDs onto safety-critical CAN networks. The resultant bus contention starves legitimate ECU frames from transmission, exceeding transmission deadline tolerances and triggering bus-off conditions. This forces critical controllers like the brake and powertrain ECUs into emergency limp-home states.",
+        "attack_example": "A rogue device connected to the chassis CAN bus transmits continuous CAN ID 0x000 frames at maximum bus capacity, preventing brake status frames from reaching the powertrain module."
+    },
+    "26.1": {
+        "title": "Cryptanalytic Attack on Weak Vehicle Bus Encryption Keys",
+        "description": "Vehicle communication systems employ short cryptographic keys or obsolete encryption algorithms that can be broken using modern computational brute-force techniques. By recovering the weak cryptographic key, adversaries decrypt protected messages and forge valid authentication codes. This defeats message integrity protection across vehicle control networks.",
+        "attack_example": "An attacker captures SecOC authentication tags generated with a truncated 32-bit key and performs offline brute-force cracking to recover the active bus key."
+    },
+    "26.2": {
+        "title": "Exploitation of Inadequate Cryptographic Algorithms in Vehicle Protocols",
+        "description": "Subsystems utilize insecure or deprecated cryptographic algorithms such as broken hash functions or unauthenticated ciphers to protect internal data flows. Adversaries exploit well-known mathematical weaknesses in these primitives to generate collisions or decrypt ciphertexts. This compromises the fundamental confidentiality and integrity of vehicle communications.",
+        "attack_example": "An adversary exploits collisions in an obsolete MD5-based diagnostic challenge-response authentication routine to unlock privileged engineering modes."
+    },
+    "27.1": {
+        "title": "Hardware Supply-Chain Trojan Implanted in Vehicle Controller",
+        "description": "Compromised third-party hardware components or malicious design modifications are introduced into ECU hardware during manufacturing and assembly. The embedded hardware trojan activates under specific bus conditions or timer triggers, providing covert hardware backdoors. This circumvents all software-level security controls and runtime integrity verifications.",
+        "attack_example": "A counterfeit microcontroller containing a hidden silicon backdoor is installed into the central gateway during assembly, allowing unauthorized hardware bus access."
+    },
+    "28.1": {
+        "title": "Buffer Overflow Vulnerability in Vehicle Communication Protocol Stacks",
+        "description": "Software implementations of complex communication protocols (such as DoIP, SOME/IP, or UDS) contain improper memory bounds checks. Adversaries send crafted network packets containing oversized payloads that overwrite execution stack or heap boundaries. This triggers memory corruption, leading to system crashes or arbitrary code execution.",
+        "attack_example": "An attacker transmits an oversized Diagnostic over IP (DoIP) header packet to the central gateway, causing a stack buffer overflow that executes injected shellcode."
+    },
+    "28.2": {
+        "title": "Exploitation of Active Hardware Debug Interfaces in Production Vehicles",
+        "description": "Hardware development artifacts such as active JTAG ports, serial UART consoles, or default engineering test accounts are left enabled on production ECUs. Attackers connect physical debugging probes to read raw memory, set hardware breakpoints, and bypass software security restrictions. This provides unrestricted low-level access to ECU silicon.",
+        "attack_example": "An adversary connects a JTAG hardware debugger to unpopulated test pads on the TCU printed circuit board, dumping internal flash memory and bypassing secure boot."
+    },
+    "29.2": {
+        "title": "Bypass of Gateway Domain Segmentation via Diagnostic Routing Flaws",
+        "description": "Adversaries exploit routing misconfigurations or protocol translation vulnerabilities in the central gateway to bridge isolated network domains. By tunneling malicious CAN messages through unprotected Ethernet-to-CAN routing tables, the attacker penetrates safety-critical buses from non-safety domains. This invalidates the physical and logical security separation between vehicle networks.",
+        "attack_example": "An attacker sends crafted diagnostic routing packets from the infotainment Ethernet domain that the central gateway forwards onto the chassis CAN bus without access control validation."
+    }
+}
+
+def build_threat_library():
+    print("Building verified threat library...")
+    with open(MAPPED_JSON, mode="r", encoding="utf-8") as f:
+        mapped_data = json.load(f)
+
+    os.makedirs(os.path.dirname(OUTPUT_LIB), exist_ok=True)
+    library_entries = []
+
+    for idx, item in enumerate(mapped_data, 1):
+        tid = item["r155_threat_id"]
+        content = THREAT_CONTENT[tid]
+
+        entry = {
+            "id": f"LIB-{idx:03d}",
+            "r155_threat_id": tid,
+            "category": item["category"],
+            "title": content["title"],
+            "description": content["description"],
+            "affected_components": item["affected_components"],
+            "affected_interfaces": item["affected_interfaces"],
+            "attack_example": content["attack_example"],
+            "capec": item["capec"],
+            "cwe": item["cwe"],
+            "r155_mitigations": item["r155_mitigations"],
+            "mapping_confidence": item["mapping_confidence"],
+            "needs_human_review": item["needs_human_review"],
+            "sources": ["UN R155 Annex 5", "CAPEC", "CWE"],
+            "library_version": "1.0"
+        }
+        library_entries.append(entry)
+
+    with open(OUTPUT_LIB, mode="w", encoding="utf-8") as f:
+        json.dump(library_entries, f, indent=2)
+
+    print(f"Successfully generated {len(library_entries)} library entries in {OUTPUT_LIB}")
+
+if __name__ == "__main__":
+    build_threat_library()

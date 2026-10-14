@@ -1,0 +1,32 @@
+# Exclude docs folder as specifically requested by user
+docs/
+
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs & Temporary Files
+*.log
+*.tmp
+.tempmediaStorage/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Vector DB Local Persistence
+data/chroma_db/

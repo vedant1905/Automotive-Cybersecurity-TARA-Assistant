@@ -1,0 +1,25 @@
+mitigation_id,description,part,mapped_threat_ids
+M10,The vehicle shall verify the authenticity and integrity of messages it receives,B,"6.1, 6.2, 6.3, 11.2"
+M12,Confidential data transmitted to or from the vehicle shall be protected,B,"7.1, 7.2"
+M13,Measures to detect and recover from a denial of service attack shall be employed,B,"8.1, 8.2, 24.1"
+M9,Measures to prevent and detect unauthorized access shall be employed,B,9.1
+M14,Measures to protect systems against embedded viruses/malware should be considered,B,"10.1, 18.2"
+M15,Measures to detect malicious internal messages or activity should be considered,B,11.1
+M16,Secure software update procedures shall be employed,B,"12.1, 12.2"
+M17,Integrity protection of software shall be employed,B,12.3
+M11,Security controls shall be implemented for storing cryptographic keys e.g. Security Modules,B,"12.4, 19.3"
+M18,Measures shall be implemented for defining and controlling user roles and access rights,B,"15.1, 15.2"
+M19,Security awareness and training shall be provided,B,"15.1, 15.2"
+M20,Systems should be designed to resist tampering,B,"16.1, 16.2"
+M21,Cryptographic controls shall be applied to protect communication confidentiality and integrity,B,"16.3, 26.1, 26.2, 26.3"
+M7,Access control techniques and designs shall be applied to protect system data/code. Example Security Controls can be found in OWASP,B,"17.1, 19.1, 20.1, 21.1, 22.2"
+M22,Network segmentation and boundary protection shall be applied to isolate critical vehicle networks,B,"18.1, 18.3, 29.1, 29.2"
+M23,Security testing and verification shall be performed during development,B,"27.1, 28.1, 28.2"
+M24,Vulnerability management and incident response processes shall be implemented,B,"31.1, 32.1"
+M8,Confidential data transmitted to or from the vehicle shall be protected,C,"1.1, 3.1, 3.2"
+M4,The vehicle shall be capable of updating,C,"1.2, 3.3"
+M9,Measures to prevent and detect unauthorized access shall be employed,C,"1.3, 3.4"
+M13,Measures to detect and recover from a denial of service attack shall be employed,C,2.1
+M18,Measures shall be implemented for defining and controlling user roles and access rights,C,"3.5, 15.1"
+M19,Security awareness and training shall be provided,C,15.2
+M24,Vulnerability management and incident response processes shall be implemented,C,"16.1, 16.2, 17.1, 18.1"
